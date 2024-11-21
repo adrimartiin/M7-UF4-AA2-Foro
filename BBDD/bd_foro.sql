@@ -25,3 +25,9 @@ create TABLE tbl_respuestas(
     FOREIGN KEY (id_preguntas) REFERENCES tbl_preguntas(id_preguntas),
     FOREIGN KEY (id_usuarios) REFERENCES tbl_usuarios(id_usuarios)
 );
+
+INSERT INTO tbl_usuarios (nombre_usuario, nombreReal_usuario, telf_usuario, psswd_usuario) 
+VALUES 
+('Juan123', 'Juan Pérez', '123456789', 'qweQWE123'),
+('Adri123', 'Adri Martín', '123456789', 'qweQWE123'),
+('Kilian123', 'Kilian Ruiz', '123456789', 'qweQWE123');
