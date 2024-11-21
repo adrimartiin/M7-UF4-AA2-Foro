@@ -9,7 +9,7 @@
 <body>
     <div class="login-container">
         <h1>Resgístrate</h1>
-        <form action="../validaciones/validaRegister.php" method="POST">
+        <form action="../validacionesPHP/validaRegister.php" method="POST">
             <label for="nombre_usuario">Nombre de usuario</label>
             <input type="text" name="nombre_usuario" placeholder="Nombre de usuario">
             <label for="nombreReal">Nombre real</label>
@@ -17,7 +17,7 @@
             <label for="numTelefono">Número de teléfono</label>
             <input type="tel" name="numTelefono" placeholder="Número de teléfono">
             <label for="password">Contraseña</label>
-            <input type="password" name="password" placeholder="Contraseña">
+            <input type="password" name="pwd" placeholder="Contraseña">
             <label for="repetirPassword">Repite la contraseña</label>
             <input type="password" name="repetirPassword" placeholder="Repite la contraseña">
             <button type="submit" class="login-btn">Entrar</button>
