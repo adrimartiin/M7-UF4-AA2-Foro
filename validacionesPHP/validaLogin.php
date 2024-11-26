@@ -16,7 +16,7 @@ try {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($row && password_verify($pwd, $row['psswd_usuario'])) {
-        header("Location: ../paginaBienvenida.php"); 
+        header("Location: ../index.php"); 
         exit();
     } else {
         header("Location: ../entrada/login.php?error=1"); 
