@@ -24,14 +24,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Preguntas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Discusiones</a>
-                    </li>
-                </ul>
+
                 <form class="d-flex w-100" role="search">
                     <input class="form-control search-bar" type="search" placeholder="Buscar" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit"><i
@@ -68,21 +61,23 @@
                 <i class="fa-solid fa-bookmark me-2"></i><span>Guardados</span>
             </a>
         </div>
-
         <div class="barra-derecha">
             <div class="central-content">
                 <div class="left-content">
-                <h2>¡Todo <span class="highlight">Programador</span> necesita CodePlus!</h2>
-                <div class="buttons">
-                    <button class="btn btn-primary btn-lg">Sign Up</button>
-                    <a class="btn btn-link" role="button">Visitar la comunidad</a>
-                </div>
+                    <h2>¡Todo <span class="highlight">Programador</span> necesita CodePlus!</h2>
+                    <p class="description">CodePlus es una comunidad de programadores que te ayuda a aprender, compartir
+                        y mejorar tus habilidades.</p>
+                    <div class="buttons">
+                        <button class="btn btn-primary btn-sm">Sign Up</button>
+                        <a class="btn btn-link fs-6" role="button">Visitar la comunidad</a>
+                    </div>
                 </div>
                 <div class="right-content">
-                <img src="./img/index_div.png">
+                    <img src="./img/index_div.png" alt="Imagen de ejemplo">
                 </div>
             </div>
         </div>
+
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-HoA1K1fLdABEl+3t4zFQxtptCkQnz4BHo9LYUDe0w5l0yAyPi6gt74cHkXz6f1KP"
