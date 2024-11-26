@@ -52,13 +52,13 @@
             </a>
             <br>
 
-            
+
             <a href="" name="discusiones" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-comments me-2"></i><span>Discusiones</span>
             </a>
             <br>
 
-            
+
             <a href="" name="preguntas" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-question-circle me-2"></i><span>Preguntas</span>
             </a>
@@ -70,7 +70,18 @@
         </div>
 
         <div class="barra-derecha">
-
+            <div class="central-content">
+                <div class="left-content">
+                <h2>¡Todo <span class="highlight">Programador</span> necesita CodePlus!</h2>
+                <div class="buttons">
+                    <button class="btn btn-primary btn-lg">Sign Up</button>
+                    <a class="btn btn-link" role="button">Visitar la comunidad</a>
+                </div>
+                </div>
+                <div class="right-content">
+                <img src="./img/index_div.png">
+                </div>
+            </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
