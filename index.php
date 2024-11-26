@@ -37,6 +37,10 @@ session_start();
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<<<<<<< HEAD
+=======
+
+>>>>>>> e738590c536e3411acfb367929a1704b1885ffba
                 <form class="d-flex w-100" role="search">
                     <input class="form-control search-bar" type="search" placeholder="Buscar" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -66,22 +70,23 @@ session_start();
                 <i class="fa-solid fa-bookmark me-2"></i><span>Guardados</span>
             </a>
         </div>
-
         <div class="barra-derecha">
             <div class="central-content">
                 <div class="left-content">
                     <h2>¡Todo <span class="highlight">Programador</span> necesita CodePlus!</h2>
+                    <p class="description">CodePlus es una comunidad de programadores que te ayuda a aprender, compartir
+                        y mejorar tus habilidades.</p>
                     <div class="buttons">
-                        <button class="btn btn-primary btn-lg">Sign Up</button>
-                        <a class="btn btn-link" role="button">Visitar la comunidad</a>
+                        <button class="btn btn-primary btn-sm">Sign Up</button>
+                        <a class="btn btn-link fs-6" role="button">Visitar la comunidad</a>
                     </div>
                 </div>
                 <div class="right-content">
-                    <img src="./img/index_div.png" alt="Imagen ilustrativa">
+                    <img src="./img/index_div.png" alt="Imagen de ejemplo">
                 </div>
             </div>
         </div>
-    </div>
+
 
 </body>
 
