@@ -1,3 +1,4 @@
+-- SQLBook: Code
 CREATE DATABASE bd_foro;
 
 USE bd_foro;
