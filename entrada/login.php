@@ -14,7 +14,7 @@
             <label for="username">Nombre de usuario</label>
             <input type="text" name="username" placeholder="Nombre de usuario">
             <label for="username">Contraseña</label>
-            <input type="password" name="password" placeholder="Contraseña">
+            <input type="password" name="pwd" placeholder="Contraseña">
             <button type="submit" class="login-btn">Entrar</button>
             <a href="./register.php">No tienes una cuenta? Registrarse</a>
             <?php
