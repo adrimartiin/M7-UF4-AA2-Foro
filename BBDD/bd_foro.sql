@@ -10,10 +10,11 @@ CREATE TABLE tbl_usuarios(
     psswd_usuario VARCHAR(60)
 );
 
-create TABLE tbl_preguntas(
+create TABLE tbl_preguntas( 
     id_preguntas INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     texto_preguntas VARCHAR(255) NOT NULL,
     titulo_preguntas VARCHAR(150) NOT NULL,
+    estado_preguntas ENUM ('no respondida', 'guardada', 'respondida') NOT NULL DEFAULT 'no respondida',
     FOREIGN KEY (id_usuarios) REFERENCES tbl_usuarios(tbl_usuarios)
 );
 
