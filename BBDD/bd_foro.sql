@@ -31,4 +31,7 @@ INSERT INTO tbl_usuarios (nombre_usuario, nombreReal_usuario, telf_usuario, pssw
 VALUES 
 ('Juan123', 'Juan Pérez', '123456789', 'qweQWE123'),
 ('Adri123', 'Adri Martín', '123456789', 'qweQWE123'),
-('Kilian123', 'Kilian Ruiz', '123456789', 'qweQWE123');
+('Manel123', 'Manel Rodriguez', '123456789', 'qweQWE123'),
+('Juanjo123', 'Juanjo Pérez', '123456789', 'qweQWE123'),
+('Pol123', 'Pol Martín', '123456789', 'qweQWE123'),
+('Julian123', 'Julian Vargas', '123456789', 'qweQWE123');
