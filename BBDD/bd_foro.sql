@@ -10,10 +10,11 @@ CREATE TABLE tbl_usuarios(
     psswd_usuario VARCHAR(60)
 );
 
-create TABLE tbl_preguntas(
+create TABLE tbl_preguntas( 
     id_preguntas INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     texto_preguntas VARCHAR(255) NOT NULL,
     titulo_preguntas VARCHAR(150) NOT NULL,
+    estado_preguntas ENUM ('no respondida', 'guardada', 'respondida') NOT NULL DEFAULT 'no respondida',
     FOREIGN KEY (id_usuarios) REFERENCES tbl_usuarios(tbl_usuarios)
 );
 
@@ -30,4 +31,7 @@ INSERT INTO tbl_usuarios (nombre_usuario, nombreReal_usuario, telf_usuario, pssw
 VALUES 
 ('Juan123', 'Juan Pérez', '123456789', 'qweQWE123'),
 ('Adri123', 'Adri Martín', '123456789', 'qweQWE123'),
-('Kilian123', 'Kilian Ruiz', '123456789', 'qweQWE123');
+('Manel123', 'Manel Rodriguez', '123456789', 'qweQWE123'),
+('Juanjo123', 'Juanjo Pérez', '123456789', 'qweQWE123'),
+('Pol123', 'Pol Martín', '123456789', 'qweQWE123'),
+('Julian123', 'Julian Vargas', '123456789', 'qweQWE123');
