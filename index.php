@@ -46,41 +46,31 @@
 
     <div class="container">
         <div class="barra-izquierda">
-            <h5><i class="fa-solid fa-users"></i> Users:</h5>
-            <!-- EN UN FUTURO SE GENERARÁN LOS USUARIOS -->
-            <p>Contenido 1</p>
-            <p>Contenido 2</p>
-            <p>Contenido 3</p>
-            <p>Contenido 4</p>
-            <p>Contenido 5</p>
-            <p>Contenido 6</p>
-            <p>Contenido 7</p>
-            <p>Contenido 8</p>
-            <p>Contenido 9</p>
-            <p>Contenido 10</p>
-            <p>Contenido 11</p>
-            <p>Contenido 12</p>
-            <p>Contenido 13</p>
-            <p>Contenido 14</p>
-            <p>Contenido 15</p>
-            <p>Contenido 16</p>
-            <p>Contenido 17</p>
-            <p>Contenido 18</p>
-            <p>Contenido 19</p>
-            <p>Contenido 20</p>
-            <p>Contenido 21</p>
-            <p>Contenido 22</p>
-            <p>Contenido 23</p>
-            <p>Contenido 24</p>
-            <p>Contenido 25</p>
-            <p>Contenido 26</p>
-            <p>Contenido 27</p>
-            <p>Contenido 28</p>
-            <p>Contenido 29</p>
-            <p>Contenido 30</p>
-        </div>
-        <div class="barra-derecha">
+
+            <a href="" name="usuarios" class="d-flex align-items-center text-decoration-none">
+                <i class="fa-solid fa-users me-2"></i><span>Usuarios</span>
+            </a>
+            <br>
+
             
+            <a href="" name="discusiones" class="d-flex align-items-center text-decoration-none">
+                <i class="fa-solid fa-comments me-2"></i><span>Discusiones</span>
+            </a>
+            <br>
+
+            
+            <a href="" name="preguntas" class="d-flex align-items-center text-decoration-none">
+                <i class="fa-solid fa-question-circle me-2"></i><span>Preguntas</span>
+            </a>
+            <br>
+
+            <a href="" name="guardados" class="d-flex align-items-center text-decoration-none">
+                <i class="fa-solid fa-bookmark me-2"></i><span>Guardados</span>
+            </a>
+        </div>
+
+        <div class="barra-derecha">
+
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
