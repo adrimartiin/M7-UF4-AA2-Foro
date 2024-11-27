@@ -20,7 +20,6 @@ session_start();
             <a class="navbar-brand" href="#"><img src="./img/nav_logo.png" id="nav_img" alt="Logo"></a>
             <?php 
                  if(!isset($_SESSION['usuario'])){
-                    // Botón que abre el popup de login 
                     ?>
                     <form action="./entrada/login.php">
                         <?php
@@ -37,17 +36,13 @@ session_start();
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-<<<<<<< HEAD
-=======
-
->>>>>>> e738590c536e3411acfb367929a1704b1885ffba
                 <form class="d-flex w-100" role="search">
                     <input class="form-control search-bar" type="search" placeholder="Buscar" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
             <form action = "./paginas/cerrar_sesion.php" method = "POST">
-            <input type="submit" value="Logout" class="btn btn-primary ms-3" name="logout">
+                <input type="submit" value="Logout" class="btn btn-primary ms-3" name="logout">
             </form>
         </div>
     </nav>
