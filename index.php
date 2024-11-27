@@ -20,7 +20,6 @@ session_start();
             <a class="navbar-brand" href="#"><img src="./img/nav_logo.png" id="nav_img" alt="Logo"></a>
             <?php 
                  if(!isset($_SESSION['usuario'])){
-                    // Botón que abre el popup de login 
                     ?>
                     <form action="./entrada/login.php">
                         <?php
@@ -43,7 +42,7 @@ session_start();
                 </form>
             </div>
             <form action = "./paginas/cerrar_sesion.php" method = "POST">
-            <input type="submit" value="Logout" class="btn btn-primary ms-3" name="logout">
+                <input type="submit" value="Logout" class="btn btn-primary ms-3" name="logout">
             </form>
         </div>
     </nav>
