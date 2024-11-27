@@ -74,9 +74,9 @@ include_once '../conexion/conexion.php';
                 <?php
                 try {
                     // Consulta para recuperar todas las preguntas con el usuario que las ha hecho
-                    $stmt = $conexion->query("SELECT id_preguntas, titulo_preguntas, texto_preguntas, tbl_preguntas.id_usuario, nombre_usuario 
+                    $stmt = $conexion->query("SELECT id_preguntas, titulo_preguntas, texto_preguntas, fecha_preguntas, tbl_preguntas.id_usuario, nombre_usuario 
                     FROM tbl_preguntas 
-                    INNER JOIN tbl_usuarios ON tbl_preguntas.id_usuario = tbl_usuarios.id_usuario");
+                    INNER JOIN tbl_usuarios ON tbl_preguntas.id_usuario = tbl_usuarios.id_usuario ORDER BY fecha_preguntas DESC");
 
                     // Obtener todos los resultados como un array asociativo
                     $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -85,16 +85,19 @@ include_once '../conexion/conexion.php';
                     if (empty($preguntas)) {
                         echo "No hay preguntas en este momento";
                     } else {
-                        // bucle para iterar sobre las preguntas que haya
-                        print_r($preguntas);
+                        foreach ($preguntas as $row) {
+                            echo '<div class="mb-3">"';
+                            echo '<h3>'. $row['titulo_preguntas']. '</h3>';
+                            echo '<p>' . $row['texto_preguntas'] . '</p>';
+                            echo '<p><strong> Usuario: </strong>' . $row['nombre_usuario'] . '</p>';
+                            echo '<p> Fecha: '. $row['fecha_preguntas'] . '</p>';
+                        }
                     }
-
-
                 } catch (PDOException $e) {
                     echo 'Error en la consulta: ' . $e->getMessage();
                 }
                 ?>
-                <form action="../acciones/insertar_pregunta.php" method="POST">
+                <form action="form_insertar_pregunta.php" method="POST">
                     <button type="submit" name="insertPreg" class="btn btn-primary ms-3">Haz una pregunta!</button>
                 </form>
             </div>
@@ -104,5 +107,4 @@ include_once '../conexion/conexion.php';
             integrity="sha384-HoA1K1fLdABEl+3t4zFQxtptCkQnz4BHo9LYUDe0w5l0yAyPi6gt74cHkXz6f1KP" crossorigin="anonymous">
             </script>
 </body>
-
 </html>
