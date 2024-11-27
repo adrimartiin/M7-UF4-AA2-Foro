@@ -13,6 +13,52 @@ include_once '../conexion/conexion.php';
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
     <title>Preguntas</title>
+    <style>
+    .barra-izquierda a[name="preguntas"] i,
+    .barra-izquierda a[name="preguntas"] span {
+        color: black;
+    }
+
+    /* Estilo para el contenedor de la pregunta */
+    .pregunta-container {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        position: relative;
+    }
+
+    /* Posiciona el botón de responder en la parte inferior derecha */
+    .responder-btn-container {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+    }
+
+    /* Estilo para el contenedor de preguntas y el botón "Haz una pregunta" */
+    .preguntas-contenedor {
+        margin-top: 30px; /* Deja un margen para separar el contenido del navbar */
+    }
+
+    /* Estilo para el botón de "Haz una pregunta" */
+    .insert-pregunta-btn-container {
+        position: relative;
+        top: -10px; /* Ajusta la posición del botón hacia arriba */
+        right: 0;
+        z-index: 10;
+        margin-bottom: 20px; /* Añade espacio entre el botón y el contenido */
+    }
+
+    .barra-derecha {
+        padding-right: 15px;
+    }
+
+    /* Espaciado entre el navbar y el contenido */
+    .navbar {
+        margin-bottom: 30px; /* Aumenta el espacio entre el navbar y el contenido */
+    }
+</style>
 </head>
 
 <body>
@@ -51,34 +97,40 @@ include_once '../conexion/conexion.php';
     </nav>
 
     <div class="container">
-        <div class="barra-izquierda">
-            <a href="../paginas/verUsuarios.php" name="usuarios" class="d-flex align-items-center text-decoration-none">
-                <i class="fa-solid fa-users me-2"></i><span>Usuarios</span>
-            </a>
-            <br>
-            <a href="" name="discusiones" class="d-flex align-items-center text-decoration-none">
-                <i class="fa-solid fa-comments me-2"></i><span>Discusiones</span>
-            </a>
-            <br>
-            <a href="" name="preguntas" class="d-flex align-items-center text-decoration-none">
-                <i class="fa-solid fa-question-circle me-2"></i><span>Preguntas</span>
-            </a>
-            <br>
-            <a href="" name="guardados" class="d-flex align-items-center text-decoration-none">
-                <i class="fa-solid fa-bookmark me-2"></i><span>Guardados</span>
-            </a>
-        </div>
+        <!-- Contenedor de las preguntas y el botón "Haz una pregunta" -->
+        <div class="preguntas-contenedor">
+            <!-- Botón "Haz una pregunta" en la parte superior derecha -->
+            <div class="insert-pregunta-btn-container">
+                <form action="form_insertar_pregunta.php" method="POST">
+                    <button type="submit" name="insertPreg" class="btn btn-primary ms-3">Haz una pregunta!</button>
+                </form>
+            </div>
 
-        <div class="barra-derecha">
-            
+            <div class="barra-izquierda">
+                <a href="" name="usuarios" class="d-flex align-items-center text-decoration-none">
+                    <i class="fa-solid fa-users me-2"></i><span>Usuarios</span>
+                </a>
+                <br>
+                <a href="" name="discusiones" class="d-flex align-items-center text-decoration-none">
+                    <i class="fa-solid fa-comments me-2"></i><span>Discusiones</span>
+                </a>
+                <br>
+                <a href="" name="preguntas" class="d-flex align-items-center text-decoration-none">
+                    <i class="fa-solid fa-question-circle me-2"></i><span>Preguntas</span>
+                </a>
+                <br>
+                <a href="" name="guardados" class="d-flex align-items-center text-decoration-none">
+                    <i class="fa-solid fa-bookmark me-2"></i><span>Guardados</span>
+                </a>
+            </div>
+
+            <div class="barra-derecha">
                 <?php
                 try {
-                    // Consulta para recuperar todas las preguntas con el usuario que las ha hecho
                     $stmt = $conexion->query("SELECT id_preguntas, titulo_preguntas, texto_preguntas, fecha_preguntas, tbl_preguntas.id_usuario, nombre_usuario 
                     FROM tbl_preguntas 
                     INNER JOIN tbl_usuarios ON tbl_preguntas.id_usuario = tbl_usuarios.id_usuario ORDER BY fecha_preguntas DESC");
 
-                    // Obtener todos los resultados como un array asociativo
                     $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     // Si no hay preguntas muestra mensaje de que no hay, si hay muestra preguntas
@@ -86,31 +138,31 @@ include_once '../conexion/conexion.php';
                         echo "No hay preguntas en este momento";
                     } else {
                         echo '<ul style="list-style-type: none; padding: 0;">';
-                    foreach ($preguntas as $pregunta) {
-                        echo '<li style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">';
-                        echo '<strong style="font-size: 16px; color: #007BFF;">Título:</strong> ' . htmlspecialchars($pregunta['titulo_preguntas']) . '<br>';
-                        echo '<strong style="font-size: 14px; color: #333;">Texto:</strong> ' . htmlspecialchars($pregunta['texto_preguntas']) . '<br>';
-                        echo '<strong style="font-size: 14px; color: #666;">Estado:</strong> ' . htmlspecialchars($pregunta['nombre_usuario']) . '<br>';
-                        echo '<strong style="font-size: 14px; color: #666;">Fecha:</strong> ' . htmlspecialchars($pregunta['fecha_preguntas']) . '<br>';
-                        echo '<form action="form_respuestas.php" method="POST">';
-                            echo '<button type="submit" name="respuesta" class="btn btn-primary ms-3"> Responder </button>';
-                        echo '</form>';
-                        echo '</li>';
-                    }
-                    echo '</ul>';
+                        foreach ($preguntas as $pregunta) {
+                            echo '<li class="pregunta-container">';
+                            echo '<strong style="font-size: 16px; color: #007BFF;">Título:</strong> ' . htmlspecialchars($pregunta['titulo_preguntas']) . '<br>';
+                            echo '<strong style="font-size: 14px; color: #333;">Texto:</strong> ' . htmlspecialchars($pregunta['texto_preguntas']) . '<br>';
+                            echo '<strong style="font-size: 14px; color: #666;">Estado:</strong> ' . htmlspecialchars($pregunta['nombre_usuario']) . '<br>';
+                            echo '<strong style="font-size: 14px; color: #666;">Fecha:</strong> ' . htmlspecialchars($pregunta['fecha_preguntas']) . '<br>';
+                            echo '<div class="responder-btn-container">';
+                                echo '<form action="form_respuestas.php" method="POST">';
+                                    echo '<button type="submit" name="respuesta" class="btn btn-primary ms-3"> Responder </button>';
+                                echo '</form>';
+                            echo '</div>';
+                            echo '</li>';
+                        }
+                        echo '</ul>';
                     }
                 } catch (PDOException $e) {
                     echo 'Error en la consulta: ' . $e->getMessage();
                 }
                 ?>
-                <form action="form_insertar_pregunta.php" method="POST">
-                    <button type="submit" name="insertPreg" class="btn btn-primary ms-3">Haz una pregunta!</button>
-                </form>
-            
+            </div>
         </div>
+    </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-HoA1K1fLdABEl+3t4zFQxtptCkQnz4BHo9LYUDe0w5l0yAyPi6gt74cHkXz6f1KP" crossorigin="anonymous">
-            </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HoA1K1fLdABEl+3t4zFQxtptCkQnz4BHo9LYUDe0w5l0yAyPi6gt74cHkXz6f1KP" crossorigin="anonymous">
+    </script>
 </body>
 </html>

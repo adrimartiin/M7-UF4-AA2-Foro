@@ -17,6 +17,7 @@ CREATE TABLE tbl_preguntas(
     texto_preguntas VARCHAR(255) NOT NULL,
     titulo_preguntas VARCHAR(150) NOT NULL,
     estado_preguntas ENUM ('no respondida', 'guardada', 'respondida') NOT NULL DEFAULT 'no respondida',
+    fecha_preguntas DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     id_usuario INT NOT NULL,
     FOREIGN KEY (id_usuario) REFERENCES tbl_usuarios(id_usuario)
 );
@@ -42,3 +43,13 @@ VALUES
 ('Juanjo123', 'Juanjo Pérez', '123456789', 'qweQWE123'),
 ('Pol123', 'Pol Martín', '123456789', 'qweQWE123'),
 ('Julian123', 'Julian Vargas', '123456789', 'qweQWE123');
+
+-- Insertar datos en la tabla de preguntas
+INSERT INTO tbl_preguntas (texto_preguntas, titulo_preguntas, estado_preguntas, fecha_preguntas, id_usuario) 
+VALUES 
+('¿Cómo puedo aprender Python desde cero?', 'Aprender Python', 'no respondida', '2024-11-27', 1),
+('¿Cuál es la mejor manera de estudiar bases de datos?', 'Estudio de Bases de Datos', 'no respondida', '2024-11-26', 2),
+('¿Qué diferencias hay entre HTML y CSS?', 'Diferencias HTML y CSS', 'no respondida', '2024-11-25', 3),
+('¿Cómo optimizar consultas en MySQL?', 'Optimización MySQL', 'no respondida', '2024-11-24', 4),
+('¿Qué es una API REST y cómo funciona?', 'Introducción a API REST', 'no respondida', '2024-11-23', 1),
+('¿Cómo proteger una aplicación web de ataques SQL Injection?', 'Seguridad SQL Injection', 'no respondida', '2024-11-22', 6);
