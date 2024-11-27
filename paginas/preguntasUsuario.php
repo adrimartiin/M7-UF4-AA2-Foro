@@ -72,7 +72,7 @@ include_once('../conexion/conexion.php');
                 <i class="fa-solid fa-comments me-2"></i><span>Discusiones</span>
             </a>
             <br>
-            <a href="./preguntas.php" name="preguntas" class="d-flex align-items-center text-decoration-none">
+            <a href="../paginas/preguntas.php" name="preguntas" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-question-circle me-2"></i><span>Preguntas</span>
             </a>
             <br>
@@ -91,17 +91,16 @@ include_once('../conexion/conexion.php');
                 $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC); //obtengo los resultados 
 
                 if ($preguntas) {
-                    echo '<h2 style="font-family: Arial, sans-serif; color: #333; border-bottom: 2px solid #007BFF; padding-bottom: 10px;">Preguntas realizadas por el usuario:</h2>';
-                    echo '<ul style="list-style-type: none; padding: 0;">';
+                    echo "<h2>Preguntas realizadas por el usuario:</h2>";
+                    echo "<ul>";
                     foreach ($preguntas as $pregunta) {
-                        echo '<li style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">';
-                        echo '<strong style="font-size: 16px; color: #007BFF;">Título:</strong> ' . htmlspecialchars($pregunta['titulo_preguntas']) . '<br>';
-                        echo '<strong style="font-size: 14px; color: #333;">Texto:</strong> ' . htmlspecialchars($pregunta['texto_preguntas']) . '<br>';
-                        echo '<strong style="font-size: 14px; color: #666;">Estado:</strong> ' . htmlspecialchars($pregunta['estado_preguntas']);
-                        echo '</li>';
+                        echo "<li>";
+                        echo "<strong>Título:</strong> " . htmlspecialchars($pregunta['titulo_preguntas']) . "<br>";
+                        echo "<strong>Texto:</strong> " . htmlspecialchars($pregunta['texto_preguntas']) . "<br>";
+                        echo "<strong>Estado:</strong> " . htmlspecialchars($pregunta['estado_preguntas']);
+                        echo "</li><br>";
                     }
-                    echo '</ul>';
-                    
+                    echo "</ul>";
                 } else {
                     echo "Este usuario no ha realizado preguntas.";
                 }
