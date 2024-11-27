@@ -18,7 +18,7 @@ include_once '../conexion/conexion.php';
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="../img/nav_logo.png" id="nav_img" alt="Logo"></a>
+            <a class="navbar-brand" href="../index.php"><img src="../img/nav_logo.png" id="nav_img" alt="Logo"></a>
             <?php
             if (!isset($_SESSION['usuario'])) {
                 ?>
@@ -52,7 +52,7 @@ include_once '../conexion/conexion.php';
 
     <div class="container">
         <div class="barra-izquierda">
-            <a href="" name="usuarios" class="d-flex align-items-center text-decoration-none">
+            <a href="../paginas/verUsuarios.php" name="usuarios" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-users me-2"></i><span>Usuarios</span>
             </a>
             <br>
@@ -70,7 +70,7 @@ include_once '../conexion/conexion.php';
         </div>
 
         <div class="barra-derecha">
-            <div class="usuario-container">
+            
                 <?php
                 try {
                     // Consulta para recuperar todas las preguntas con el usuario que las ha hecho
@@ -92,7 +92,9 @@ include_once '../conexion/conexion.php';
                         echo '<strong style="font-size: 14px; color: #333;">Texto:</strong> ' . htmlspecialchars($pregunta['texto_preguntas']) . '<br>';
                         echo '<strong style="font-size: 14px; color: #666;">Estado:</strong> ' . htmlspecialchars($pregunta['nombre_usuario']) . '<br>';
                         echo '<strong style="font-size: 14px; color: #666;">Fecha:</strong> ' . htmlspecialchars($pregunta['fecha_preguntas']) . '<br>';
-
+                        echo '<form action="form_respuestas.php" method="POST">';
+                            echo '<button type="submit" name="respuesta" class="btn btn-primary ms-3"> Responder </button>';
+                        echo '</form>';
                         echo '</li>';
                     }
                     echo '</ul>';
@@ -104,7 +106,7 @@ include_once '../conexion/conexion.php';
                 <form action="form_insertar_pregunta.php" method="POST">
                     <button type="submit" name="insertPreg" class="btn btn-primary ms-3">Haz una pregunta!</button>
                 </form>
-            </div>
+            
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
