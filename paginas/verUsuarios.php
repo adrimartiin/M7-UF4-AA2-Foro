@@ -78,13 +78,15 @@ include_once('../conexion/conexion.php');
                     $stmt = $conexion->query("SELECT nombre_usuario FROM tbl_usuarios");
                     $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC); // Obtener todos los resultados como un array asociativo
 
-                    // Usar un bucle for para iterar sobre los usuarios
                     for ($i = 0; $i < count($usuarios); $i++) {
                         echo '<div class="usuario-item">';
-                        echo '<img src="../img/perfil.png" alt="Foto de perfil">'; // Imagen genérica
+                        echo '<a href="./preguntasUsuario.php?id=' . urlencode($usuarios[$i]['id_usuario']) . '">'; // Aquí pasas el ID
+                        echo '<img src="../img/perfil.png" alt="Foto de perfil">'; 
                         echo '<span>' . htmlspecialchars($usuarios[$i]['nombre_usuario']) . '</span>';
+                        echo '</a>';
                         echo '</div>';
                     }
+                    
                 } catch (PDOException $e) {
                     echo 'Error en la consulta: ' . $e->getMessage();
                 }
