@@ -18,54 +18,61 @@ include_once('../conexion/conexion.php');
     <link href="../css/styles.css" rel="stylesheet">
     <title>CodePlus</title>
     <style>
-
-    </style>
+    .barra-izquierda a[name="usuarios"] i,
+    .barra-izquierda a[name="usuarios"] span {
+        color: black;
+    }
+</style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../index.php"><img src="../img/nav_logo.png" id="nav_img"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <a class="navbar-brand" href="../index.php"><img src="../img/nav_logo.png" id="nav_img" alt="Logo"></a>
+            <?php 
+                 if(!isset($_SESSION['usuario'])){
+                    ?>
+                    <form action="../entrada/login.php">
+                        <?php
+                    echo '<button class="btn btn-primary ms-3">Login</button>';
+                    ?>
+                    </form>
+                    <?php
+                 } else {
+                    echo $_SESSION['usuario'];
+                 }
+                 ?>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Preguntas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Discusiones</a>
-                    </li>
-                </ul>
                 <form class="d-flex w-100" role="search">
                     <input class="form-control search-bar" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit"><i
-                            class="fa-solid fa-magnifying-glass"></i></button>
-                </form>
-.                    <button class="btn btn-primary">Login</button>
+                    <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
+            <form action = "./cerrar_sesion.php" method = "POST">
+                <input type="submit" value="Logout" class="btn btn-primary ms-3" name="logout">
+            </form>
         </div>
-    </nav> <!-- fin de navbar -->
+    </nav>
 
     <div class="container">
         <div class="barra-izquierda">
-            <a href="" name="usuarios" class="d-flex align-items-center text-decoration-none">
+            <a href="./verUsuarios.php" name="usuarios" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-users me-2"></i><span>Usuarios</span>
             </a>
             <br>
-            <a href="" name="discusiones" class="d-flex align-items-center text-decoration-none">
+            <a href="#" name="discusiones" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-comments me-2"></i><span>Discusiones</span>
             </a>
             <br>
-            <a href="" name="preguntas" class="d-flex align-items-center text-decoration-none">
+            <a href="../preguntas.php" name="preguntas" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-question-circle me-2"></i><span>Preguntas</span>
             </a>
             <br>
-            <a href="" name="guardados" class="d-flex align-items-center text-decoration-none">
+            <a href="#" name="guardados" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-bookmark me-2"></i><span>Guardados</span>
             </a>
         </div>
@@ -75,7 +82,7 @@ include_once('../conexion/conexion.php');
                 <?php
                 try {
                     // Consulta a la base de datos
-                    $stmt = $conexion->query("SELECT nombre_usuario FROM tbl_usuarios");
+                    $stmt = $conexion->query("SELECT nombre_usuario, id_usuario FROM tbl_usuarios");
                     $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC); // Obtener todos los resultados como un array asociativo
 
                     for ($i = 0; $i < count($usuarios); $i++) {
@@ -93,7 +100,7 @@ include_once('../conexion/conexion.php');
                 ?>
             </div>
         </div>
-
+    </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-HoA1K1fLdABEl+3t4zFQxtptCkQnz4BHo9LYUDe0w5l0yAyPi6gt74cHkXz6f1KP"
             crossorigin="anonymous">
