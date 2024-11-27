@@ -85,13 +85,17 @@ include_once '../conexion/conexion.php';
                     if (empty($preguntas)) {
                         echo "No hay preguntas en este momento";
                     } else {
-                        foreach ($preguntas as $row) {
-                            echo '<div class="mb-3">"';
-                            echo '<h3>'. $row['titulo_preguntas']. '</h3>';
-                            echo '<p>' . $row['texto_preguntas'] . '</p>';
-                            echo '<p><strong> Usuario: </strong>' . $row['nombre_usuario'] . '</p>';
-                            echo '<p> Fecha: '. $row['fecha_preguntas'] . '</p>';
-                        }
+                        echo '<ul style="list-style-type: none; padding: 0;">';
+                    foreach ($preguntas as $pregunta) {
+                        echo '<li style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">';
+                        echo '<strong style="font-size: 16px; color: #007BFF;">Título:</strong> ' . htmlspecialchars($pregunta['titulo_preguntas']) . '<br>';
+                        echo '<strong style="font-size: 14px; color: #333;">Texto:</strong> ' . htmlspecialchars($pregunta['texto_preguntas']) . '<br>';
+                        echo '<strong style="font-size: 14px; color: #666;">Estado:</strong> ' . htmlspecialchars($pregunta['nombre_usuario']) . '<br>';
+                        echo '<strong style="font-size: 14px; color: #666;">Fecha:</strong> ' . htmlspecialchars($pregunta['fecha_preguntas']) . '<br>';
+
+                        echo '</li>';
+                    }
+                    echo '</ul>';
                     }
                 } catch (PDOException $e) {
                     echo 'Error en la consulta: ' . $e->getMessage();
