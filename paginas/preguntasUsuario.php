@@ -2,6 +2,10 @@
 
 session_start();
 
+if (isset($_GET['id'])) {
+    $id_usuario = intval($_GET['id']); 
+}
+
 include_once('../conexion/conexion.php');
 
 ?>
@@ -32,7 +36,7 @@ include_once('../conexion/conexion.php');
             <?php 
                  if(!isset($_SESSION['usuario'])){
                     ?>
-                    <form action="../entrada/login.php">
+                    <form action="./entrada/login.php">
                         <?php
                     echo '<button class="btn btn-primary ms-3">Login</button>';
                     ?>
@@ -68,7 +72,7 @@ include_once('../conexion/conexion.php');
                 <i class="fa-solid fa-comments me-2"></i><span>Discusiones</span>
             </a>
             <br>
-            <a href="../preguntas.php" name="preguntas" class="d-flex align-items-center text-decoration-none">
+            <a href="./preguntas.php" name="preguntas" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-question-circle me-2"></i><span>Preguntas</span>
             </a>
             <br>
@@ -78,33 +82,35 @@ include_once('../conexion/conexion.php');
         </div>
 
         <div class="barra-derecha">
-            <div class="usuario-container">
-                <?php
-                try {
-                    // Consulta a la base de datos
-                    $stmt = $conexion->query("SELECT nombre_usuario, id_usuario FROM tbl_usuarios");
-                    $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC); // Obtener todos los resultados como un array asociativo
+            <?php
+            try {
+                $stmt = $conexion->prepare("SELECT titulo_preguntas, texto_preguntas, estado_preguntas FROM tbl_preguntas WHERE id_usuario = :id_usuario");
+                $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+                $stmt->execute();
+                
+                $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC); //obtengo los resultados 
 
-                    for ($i = 0; $i < count($usuarios); $i++) {
-                        echo '<div class="usuario-item">';
-                        echo '<a href="./preguntasUsuario.php?id=' . urlencode($usuarios[$i]['id_usuario']) . '">'; // Aquí pasas el ID
-                        echo '<img src="../img/perfil.png" alt="Foto de perfil">'; 
-                        echo '<span>' . htmlspecialchars($usuarios[$i]['nombre_usuario']) . '</span>';
-                        echo '</a>';
-                        echo '</div>';
+                if ($preguntas) {
+                    echo '<h2 style="font-family: Arial, sans-serif; color: #333; border-bottom: 2px solid #007BFF; padding-bottom: 10px;">Preguntas realizadas por el usuario:</h2>';
+                    echo '<ul style="list-style-type: none; padding: 0;">';
+                    foreach ($preguntas as $pregunta) {
+                        echo '<li style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">';
+                        echo '<strong style="font-size: 16px; color: #007BFF;">Título:</strong> ' . htmlspecialchars($pregunta['titulo_preguntas']) . '<br>';
+                        echo '<strong style="font-size: 14px; color: #333;">Texto:</strong> ' . htmlspecialchars($pregunta['texto_preguntas']) . '<br>';
+                        echo '<strong style="font-size: 14px; color: #666;">Estado:</strong> ' . htmlspecialchars($pregunta['estado_preguntas']);
+                        echo '</li>';
                     }
+                    echo '</ul>';
                     
-                } catch (PDOException $e) {
-                    echo 'Error en la consulta: ' . $e->getMessage();
+                } else {
+                    echo "Este usuario no ha realizado preguntas.";
                 }
-                ?>
-            </div>
+            } catch (PDOException $e) {
+                echo "Error en la conexión: " . $e->getMessage();
+            }
+
+            ?>
         </div>
     </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-HoA1K1fLdABEl+3t4zFQxtptCkQnz4BHo9LYUDe0w5l0yAyPi6gt74cHkXz6f1KP"
-            crossorigin="anonymous">
-        </script>
-</body>
 
-</html>
+</body>

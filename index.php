@@ -65,23 +65,22 @@ session_start();
                 <i class="fa-solid fa-bookmark me-2"></i><span>Guardados</span>
             </a>
         </div>
+
         <div class="barra-derecha">
             <div class="central-content">
                 <div class="left-content">
                     <h2>¡Todo <span class="highlight">Programador</span> necesita CodePlus!</h2>
-                    <p class="description">CodePlus es una comunidad de programadores que te ayuda a aprender, compartir
-                        y mejorar tus habilidades.</p>
                     <div class="buttons">
-                        <button class="btn btn-primary btn-sm">Sign Up</button>
-                        <a class="btn btn-link fs-6" role="button">Visitar la comunidad</a>
+                        <button class="btn btn-primary btn-lg">Sign Up</button>
+                        <a class="btn btn-link" role="button">Visitar la comunidad</a>
                     </div>
                 </div>
                 <div class="right-content">
-                    <img src="./img/index_div.png" alt="Imagen de ejemplo">
+                    <img src="./img/index_div.png" alt="Imagen ilustrativa">
                 </div>
             </div>
         </div>
-
+    </div>
 
 </body>
 
