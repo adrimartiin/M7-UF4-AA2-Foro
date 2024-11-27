@@ -162,7 +162,7 @@ include_once '../conexion/conexion.php';
                             echo '<button type="submit" name="verRespuesta" class="btn btn-primary">Ver Respuestas</button>';
                             echo '</form>';
 
-                            echo '<form action="form_respuestas.php" method="POST">';
+                            echo '<form action="form_insertar_respuestas.php" method="POST">';
                             echo '<button type="submit" name="respuesta" class="btn btn-primary">Responder</button>';
                             echo '</form>';
                             echo '</div>'; // Cierre del grupo de botones
