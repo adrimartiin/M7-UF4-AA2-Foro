@@ -145,8 +145,9 @@ include_once '../conexion/conexion.php';
                         foreach ($preguntas as $pregunta) {
                             echo '<li class="pregunta-container" style="margin-bottom: 20px; position: relative;">';
                             echo '<form action="guardar_preguntas.php" method="post">';
-                            echo '<button class="btn btn-success" style="position: absolute; top: 5px; right: 10px;">';
-                            echo '<i class="fas fa-save"></i> ';
+                                echo '<input type="hidden" name="idPregunta" value="'. $pregunta['id_preguntas']. '">';
+                                echo '<button class="btn btn-success" style="position: absolute; top: 5px; right: 10px;">';
+                                echo '<i class="fas fa-save"></i> ';
                             echo '</button>';
                             echo '</form>';
                             echo '<strong style="font-size: 16px; color: #007BFF;">Título:</strong> ' . htmlspecialchars($pregunta['titulo_preguntas']) . '<br>';
