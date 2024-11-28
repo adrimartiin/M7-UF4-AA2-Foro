@@ -29,6 +29,7 @@ CREATE TABLE tbl_respuestas(
     texto_respuestas VARCHAR(255) NOT NULL,
     titulo_respuestas VARCHAR(150) NOT NULL,
     estado_respuestas ENUM('no contestada', 'contestada') NOT NULL DEFAULT 'no contestada',
+    fecha_respuestas DATETIME DEFAULT CURRENT_TIMESTAMP,
     id_preguntas INT NOT NULL,
     id_usuario INT NOT NULL,
     FOREIGN KEY (id_preguntas) REFERENCES tbl_preguntas(id_preguntas),

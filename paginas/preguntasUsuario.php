@@ -84,24 +84,50 @@ include_once('../conexion/conexion.php');
         <div class="barra-derecha">
             <?php
             try {
-                $stmt = $conexion->prepare("SELECT titulo_preguntas, texto_preguntas, estado_preguntas FROM tbl_preguntas WHERE id_usuario = :id_usuario");
+                $stmt = $conexion->prepare("
+                SELECT id_preguntas, titulo_preguntas, texto_preguntas,estado_preguntas, fecha_preguntas, tbl_preguntas.id_usuario, nombre_usuario 
+                FROM tbl_preguntas 
+                INNER JOIN tbl_usuarios ON tbl_preguntas.id_usuario = tbl_usuarios.id_usuario 
+                WHERE tbl_preguntas.id_usuario = :id_usuario 
+                ORDER BY fecha_preguntas DESC");
+
                 $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
                 $stmt->execute();
+            
                 
                 $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC); //obtengo los resultados 
 
                 if ($preguntas) {
                     echo "<h2>Preguntas realizadas por el usuario:</h2>";
-                    echo "<ul>";
+                    echo "<ul style='list-style-type: none; padding: 0;'>";
                     foreach ($preguntas as $pregunta) {
-                        echo "<li>";
-                        echo "<strong>Título:</strong> " . htmlspecialchars($pregunta['titulo_preguntas']) . "<br>";
-                        echo "<strong>Texto:</strong> " . htmlspecialchars($pregunta['texto_preguntas']) . "<br>";
-                        echo "<strong>Estado:</strong> " . htmlspecialchars($pregunta['estado_preguntas']);
-                        echo "</li><br>";
-                    }
+                        echo '<li class="pregunta-container" style="margin-bottom: 20px; position: relative;">';
+                        echo '<form action="guardar_preguntas.php" method="post">';
+                        echo '<button class="btn btn-success" style="position: absolute; top: 5px; right: 10px;">';
+                        echo '<i class="fas fa-save"></i> ';
+                        echo '</button>';
+                        echo '</form>';                        echo "<strong>Título:</strong> <span>" . htmlspecialchars($pregunta['titulo_preguntas']) . "</span><br>";
+                        echo "<strong>Texto:</strong> <span>" . htmlspecialchars($pregunta['texto_preguntas']) . "</span><br>";
+                        echo "<strong>Estado:</strong> <span>" . htmlspecialchars($pregunta['estado_preguntas']) . "</span>";
+
+                        echo '<div class="button-group" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">';
+
+                        echo '<div style="display: flex; gap: 10px;">';
+                        echo '<form action="verRespuestas.php" method="POST">';
+                        echo '<input type="hidden" name="id_pregunta" value="' . $pregunta['id_preguntas'] . '">';
+                        echo '<button type="submit" name="verRespuesta" class="btn btn-primary">Ver Respuestas</button>';
+                        echo '</form>';
+
+                        echo '<form action="form_insertar_respuesta.php" method="POST">';
+                        echo '<input type="hidden" name="id_pregunta" value="' . $pregunta['id_preguntas'] . '">';
+                        echo '<button type="submit" name="respuesta" class="btn btn-primary">Responder</button>';
+                        echo '</form>';
+                        echo '</div>'; 
+                        echo '</div>'; 
+                        echo '</li>';                    }
                     echo "</ul>";
-                } else {
+                }
+                 else {
                     echo "Este usuario no ha realizado preguntas.";
                 }
             } catch (PDOException $e) {

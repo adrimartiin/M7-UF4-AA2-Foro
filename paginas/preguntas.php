@@ -132,8 +132,8 @@ include_once '../conexion/conexion.php';
                 <?php
                 try {
                     $stmt = $conexion->query("SELECT id_preguntas, titulo_preguntas, texto_preguntas, fecha_preguntas, tbl_preguntas.id_usuario, nombre_usuario 
-    FROM tbl_preguntas 
-    INNER JOIN tbl_usuarios ON tbl_preguntas.id_usuario = tbl_usuarios.id_usuario ORDER BY fecha_preguntas DESC");
+                    FROM tbl_preguntas 
+                    INNER JOIN tbl_usuarios ON tbl_preguntas.id_usuario = tbl_usuarios.id_usuario ORDER BY fecha_preguntas DESC");
 
                     $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -155,20 +155,20 @@ include_once '../conexion/conexion.php';
                             echo '<strong style="font-size: 14px; color: #666;">Usuario:</strong> ' . htmlspecialchars($pregunta['nombre_usuario']) . '<br>';
                             echo '<strong style="font-size: 14px; color: #666;">Fecha:</strong> ' . htmlspecialchars($pregunta['fecha_preguntas']) . '<br>';
 
-                            // Contenedor de botones
                             echo '<div class="button-group" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">';
 
                             echo '<div style="display: flex; gap: 10px;">';
                             echo '<form action="verRespuestas.php" method="POST">';
+                            echo '<input type="hidden" name="id_pregunta" value="' . $pregunta['id_preguntas'] . '">';
                             echo '<button type="submit" name="verRespuesta" class="btn btn-primary">Ver Respuestas</button>';
                             echo '</form>';
 
                             echo '<form action="form_insertar_respuesta.php" method="POST">';
+                            echo '<input type="hidden" name="id_pregunta" value="' . $pregunta['id_preguntas'] . '">';
                             echo '<button type="submit" name="respuesta" class="btn btn-primary">Responder</button>';
                             echo '</form>';
-                            echo '</div>'; // Cierre del grupo de botones
-                
-                            echo '</div>'; // Cierre del contenedor principal de botones
+                            echo '</div>'; 
+                            echo '</div>'; 
                             echo '</li>';
                         }
                         echo '</ul>';
@@ -177,16 +177,14 @@ include_once '../conexion/conexion.php';
                     echo 'Error en la consulta: ' . $e->getMessage();
                 }
                 ?>
-
-
-
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HoA1K1fLdABEl+3t4zFQxtptCkQnz4BHo9LYUDe0w5l0yAyPi6gt74cHkXz6f1KP" crossorigin="anonymous">
-        </script>
+        integrity="sha384-pzjw8f+ua7Kw1TIq0spbMQF1UoE2bhcY3nZf6hu0bVsYoVvT5vTq77p9bRXg5HUP"
+        crossorigin="anonymous"></script>
+
 </body>
 
 </html>
