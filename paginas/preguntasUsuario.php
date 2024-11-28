@@ -68,15 +68,15 @@ include_once('../conexion/conexion.php');
                 <i class="fa-solid fa-users me-2"></i><span>Usuarios</span>
             </a>
             <br>
-            <a href="#" name="discusiones" class="d-flex align-items-center text-decoration-none">
+            <a href="./discusiones.php" name="discusiones" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-comments me-2"></i><span>Discusiones</span>
             </a>
             <br>
-            <a href="../paginas/preguntas.php" name="preguntas" class="d-flex align-items-center text-decoration-none">
+            <a href="./preguntas.php" name="preguntas" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-question-circle me-2"></i><span>Preguntas</span>
             </a>
             <br>
-            <a href="#" name="guardados" class="d-flex align-items-center text-decoration-none">
+            <a href="./guardados.php" name="guardados" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-bookmark me-2"></i><span>Guardados</span>
             </a>
         </div>
@@ -103,10 +103,12 @@ include_once('../conexion/conexion.php');
                     foreach ($preguntas as $pregunta) {
                         echo '<li class="pregunta-container" style="margin-bottom: 20px; position: relative;">';
                         echo '<form action="guardar_preguntas.php" method="post">';
+                        echo '<input type="hidden" name="idPregunta" value="'. $pregunta['id_preguntas']. '">';
                         echo '<button class="btn btn-success" style="position: absolute; top: 5px; right: 10px;">';
                         echo '<i class="fas fa-save"></i> ';
                         echo '</button>';
-                        echo '</form>';                        echo "<strong>Título:</strong> <span>" . htmlspecialchars($pregunta['titulo_preguntas']) . "</span><br>";
+                        echo '</form>';                        
+                        echo "<strong>Título:</strong> <span>" . htmlspecialchars($pregunta['titulo_preguntas']) . "</span><br>";
                         echo "<strong>Texto:</strong> <span>" . htmlspecialchars($pregunta['texto_preguntas']) . "</span><br>";
                         echo "<strong>Estado:</strong> <span>" . htmlspecialchars($pregunta['estado_preguntas']) . "</span>";
 
@@ -124,7 +126,8 @@ include_once('../conexion/conexion.php');
                         echo '</form>';
                         echo '</div>'; 
                         echo '</div>'; 
-                        echo '</li>';                    }
+                        echo '</li>';                    
+                    }
                     echo "</ul>";
                 }
                  else {

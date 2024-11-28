@@ -38,9 +38,8 @@ if (!isset($usuario)) {
         // Verificar condiciones para guardar la pregunta
         if ($resultado_pregunta['guardar_preguntas'] === 'no guardada' && $resultado_pregunta['id_usuario'] != $id_usuario_actual) {
             // Actualizar estado de la pregunta a 'guardada' asignada al usuario actual
-            $sql_update = "UPDATE tbl_preguntas SET guardar_preguntas = 'guardada', id_usuario = :id_usuario WHERE id_preguntas = :id_pregunta";
+            $sql_update = "UPDATE tbl_preguntas SET guardar_preguntas = 'guardada' WHERE id_preguntas = :id_pregunta";
             $stmt_update = $conexion->prepare($sql_update);
-            $stmt_update->bindParam(':id_usuario', $id_usuario_actual);
             $stmt_update->bindParam(':id_pregunta', $id_pregunta);
             $stmt_update->execute();
 
