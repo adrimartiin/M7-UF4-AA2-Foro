@@ -21,20 +21,20 @@ if (!isset($_SESSION['usuario'])) {
     <body>
         <div class="login-container">
             <h1 class="login-title">Hacer Pregunta</h1>
-            <form action="../acciones/insertar_pregunta.php" method="POST" class="login-form">
+            <form action="../acciones/insertar_pregunta.php" method="POST" class="login-form" id="preguntas-form">
                 <label for="title" class="form-label">Título de la Pregunta</label>
-                <input type="text" name="title" placeholder="Titulo de la pregunta" class="form-input">
-                <span class="error-message" id="error-nombre"></span>
+                <input type="text" id="title" name="title" placeholder="Titulo de la pregunta" class="form-input">
+                <span class="error-message" id="error-titulo"></span>
                 <label for="content" class="form-label">Detalles de la Pregunta</label>
-                <textarea name="content" placeholder="Detalles de la Pregunta" class="form-control"></textarea>
-                <span class="error-message" id="error-pwd"></span>
+                <textarea name="content" id="content" placeholder="Detalles de la Pregunta" class="form-control"></textarea>
+                <span class="error-message" id="error-content"></span>
                 <form action="" method="POST">  
                     <button type="submit" class="login-btn">Añadir Pregunta</button>
                 </form>
             </form>
         </div>
+    <script src="../funcionesJS/validaPreguntas.js"></script>
     </body>
-
     </html>
     <?php
         }   
