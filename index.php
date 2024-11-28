@@ -53,7 +53,7 @@ session_start();
                 <i class="fa-solid fa-users me-2"></i><span>Usuarios</span>
             </a>
             <br>
-            <a href="#" name="discusiones" class="d-flex align-items-center text-decoration-none">
+            <a href="./paginas/discusiones.php" name="discusiones" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-comments me-2"></i><span>Discusiones</span>
             </a>
             <br>
