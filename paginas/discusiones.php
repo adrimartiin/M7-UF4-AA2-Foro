@@ -15,12 +15,18 @@ include_once '../conexion/conexion.php';
     <link href="../css/styles.css" rel="stylesheet">
     <title>Discusiones</title>
 </head>
+<style>
+        .barra-izquierda a[name="discusiones"] i,
+        .barra-izquierda a[name="discusiones"] span {
+            color: black;
+        }
+</style>
 
 <body>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="../img/nav_logo.png" id="nav_img" alt="Logo"></a>
+            <a class="navbar-brand" href="../index.php"><img src="../img/nav_logo.png" id="nav_img" alt="Logo"></a>
             <?php
             if (!isset($_SESSION['usuario'])) {
                 ?>
@@ -54,20 +60,20 @@ include_once '../conexion/conexion.php';
 
     <div class="container">
         <div class="barra-izquierda">
-            <a href="./paginas/verUsuarios.php" name="usuarios" class="d-flex align-items-center text-decoration-none">
+            <a href="./verUsuarios.php" name="usuarios" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-users me-2"></i><span>Usuarios</span>
             </a>
             <br>
-            <a href="./paginas/discusiones.php" name="discusiones"
+            <a href="./discusiones.php" name="discusiones"
                 class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-comments me-2"></i><span>Discusiones</span>
             </a>
             <br>
-            <a href="./paginas/preguntas.php" name="preguntas" class="d-flex align-items-center text-decoration-none">
+            <a href="./preguntas.php" name="preguntas" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-question-circle me-2"></i><span>Preguntas</span>
             </a>
             <br>
-            <a href="./paginas/guardados.php" name="guardados" class="d-flex align-items-center text-decoration-none">
+            <a href="./guardados.php" name="guardados" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-bookmark me-2"></i><span>Guardados</span>
             </a>
         </div>

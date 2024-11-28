@@ -68,19 +68,19 @@ if (isset($_POST['id_pregunta'])) {
 
     <div class="container">
     <div class="barra-izquierda">
-                <a href="" name="usuarios" class="d-flex align-items-center text-decoration-none">
+                <a href="./verUsuarios.php" name="usuarios" class="d-flex align-items-center text-decoration-none">
                     <i class="fa-solid fa-users me-2"></i><span>Usuarios</span>
                 </a>
                 <br>
-                <a href="" name="discusiones" class="d-flex align-items-center text-decoration-none">
+                <a href="./discusiones.php" name="discusiones" class="d-flex align-items-center text-decoration-none">
                     <i class="fa-solid fa-comments me-2"></i><span>Discusiones</span>
                 </a>
                 <br>
-                <a href="" name="preguntas" class="d-flex align-items-center text-decoration-none">
+                <a href="./preguntas.php" name="preguntas" class="d-flex align-items-center text-decoration-none">
                     <i class="fa-solid fa-question-circle me-2"></i><span>Preguntas</span>
                 </a>
                 <br>
-                <a href="" name="guardados" class="d-flex align-items-center text-decoration-none">
+                <a href="./guardados.php" name="guardados" class="d-flex align-items-center text-decoration-none">
                     <i class="fa-solid fa-bookmark me-2"></i><span>Guardados</span>
                 </a>
             </div>
@@ -98,6 +98,7 @@ if (isset($_POST['id_pregunta'])) {
                             tbl_preguntas.titulo_preguntas, 
                             tbl_preguntas.texto_preguntas, 
                             tbl_preguntas.fecha_preguntas, 
+                            tbl_preguntas.id_preguntas,
                             tbl_usuarios_pregunta.nombre_usuario AS nombre_usuario_pregunta
                         FROM 
                             tbl_respuestas
@@ -121,6 +122,12 @@ if (isset($_POST['id_pregunta'])) {
                     if (!empty($respuestas)) {
                         $pregunta = $respuestas[0];
                         echo '<div class="pregunta-container">';
+                        echo '<form action="guardar_preguntas.php" method="post">';
+                        echo '<input type="hidden" name="idPregunta" value="'. $pregunta['id_preguntas']. '">';
+                        echo '<button class="btn btn-success" style="position: absolute; top: 5px; right: 10px;">';
+                        echo '<i class="fas fa-save"></i> ';
+                        echo '</button>';
+                        echo '</form>';
                         echo '<h5>' . htmlspecialchars($pregunta['titulo_preguntas']) . '</h5>';
                         echo '<p>' . nl2br(htmlspecialchars($pregunta['texto_preguntas'])) . '</p>';
                         echo '<small>Por: ' . htmlspecialchars($pregunta['nombre_usuario_pregunta']) . ' | Fecha: ' . htmlspecialchars($pregunta['fecha_preguntas']) . '</small>';

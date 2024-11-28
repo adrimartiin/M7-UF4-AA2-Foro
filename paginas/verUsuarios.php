@@ -64,15 +64,15 @@ include_once('../conexion/conexion.php');
                 <i class="fa-solid fa-users me-2"></i><span>Usuarios</span>
             </a>
             <br>
-            <a href="#" name="discusiones" class="d-flex align-items-center text-decoration-none">
+            <a href="./discusiones.php" name="discusiones" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-comments me-2"></i><span>Discusiones</span>
             </a>
             <br>
-            <a href="../preguntas.php" name="preguntas" class="d-flex align-items-center text-decoration-none">
+            <a href="./preguntas.php" name="preguntas" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-question-circle me-2"></i><span>Preguntas</span>
             </a>
             <br>
-            <a href="#" name="guardados" class="d-flex align-items-center text-decoration-none">
+            <a href="./guardados.php" name="guardados" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-bookmark me-2"></i><span>Guardados</span>
             </a>
         </div>
