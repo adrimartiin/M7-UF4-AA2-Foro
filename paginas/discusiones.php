@@ -59,6 +59,11 @@ include_once '../conexion/conexion.php';
     </nav>
 
     <div class="container">
+            <div class="insert-pregunta-btn-container">
+                <form action="form_insertar_pregunta.php" method="POST">
+                    <button type="submit" name="insertPreg" class="btn btn-primary ms-3">Haz una pregunta!</button>
+                </form>
+            </div>
         <div class="barra-izquierda">
             <a href="./verUsuarios.php" name="usuarios" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-users me-2"></i><span>Usuarios</span>
@@ -94,7 +99,6 @@ include_once '../conexion/conexion.php';
                 $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 if ($preguntas) {
-                    echo '<h2>Discusiones:</h2>';
                     foreach ($preguntas as $pregunta) {
                         echo '<div class="card mb-3">
                             <div class="card-body">
