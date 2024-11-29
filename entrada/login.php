@@ -10,12 +10,12 @@
 <body>
     <div class="login-container">
         <h1 class="login-title">Iniciar Sesión</h1>
-        <form action="../validacionesPHP/validaLogin.php" method="POST" class="login-form">
+        <form action="../validacionesPHP/validaLogin.php" method="POST" id="loginForm" class="login-form">
             <label for="username" class="form-label">Nombre de usuario</label>
-            <input type="text" name="username" placeholder="Nombre de usuario" class="form-input">
+            <input type="text" name="username" id="username" placeholder="Nombre de usuario" class="form-input">
             <span class="error-message" id="error-nombre"></span>
             <label for="password" class="form-label">Contraseña</label>
-            <input type="password" name="pwd" placeholder="Contraseña" class="form-input">
+            <input type="password" name="pwd" id="password" placeholder="Contraseña" class="form-input">
             <span class="error-message" id="error-pwd"></span>
             <button type="submit" class="login-btn">Entrar</button>
             <a href="./register.php" class="register-link">No tienes una cuenta? Registrarse</a>
@@ -27,5 +27,6 @@
             ?>
         </form>
     </div>
+<script src="../funcionesJS/validaLogin.js"></script>
 </body>
 </html>
