@@ -1,6 +1,10 @@
 <?php
 session_start();
 include_once '../conexion/conexion.php';
+
+// Obtener el término de búsqueda si se ha enviado
+$searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
+
 ?>
 
 <html lang="en">
@@ -21,14 +25,17 @@ include_once '../conexion/conexion.php';
 
         /* Estilo para el contenedor de la pregunta */
         .pregunta-container {
-            margin-bottom: 20px;
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
             background-color: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
             position: relative;
         }
-
+        .pregunta-container:hover {
+            background-color: #f0f0ff;
+        }
         /* Posiciona el botón de responder en la parte inferior derecha */
         .responder-btn-container {
             position: absolute;
@@ -62,6 +69,12 @@ include_once '../conexion/conexion.php';
             margin-bottom: 30px;
             /* Aumenta el espacio entre el navbar y el contenido */
         }
+
+        .button-group {
+            display: flex;
+            gap: 10px; /* Espacio entre los botones */
+            justify-content: flex-start;
+        }
     </style>
 </head>
 
@@ -88,10 +101,9 @@ include_once '../conexion/conexion.php';
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="d-flex w-100" role="search">
-                    <input class="form-control search-bar" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit"><i
-                            class="fa-solid fa-magnifying-glass"></i></button>
+                <form class="d-flex w-100" role="search" action="" method="get">
+                    <input class="form-control search-bar" type="search" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>" placeholder="Buscar" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
             <form action="../paginas/cerrar_sesion.php" method="POST">
@@ -131,9 +143,26 @@ include_once '../conexion/conexion.php';
             <div class="barra-derecha">
                 <?php
                 try {
-                    $stmt = $conexion->query("SELECT id_preguntas, titulo_preguntas, texto_preguntas, fecha_preguntas, tbl_preguntas.id_usuario, nombre_usuario 
+                    // Si hay un término de búsqueda, modificar la consulta para filtrar por él
+                    $query = "SELECT id_preguntas, titulo_preguntas, texto_preguntas, fecha_preguntas, tbl_preguntas.id_usuario, nombre_usuario 
                     FROM tbl_preguntas 
-                    INNER JOIN tbl_usuarios ON tbl_preguntas.id_usuario = tbl_usuarios.id_usuario ORDER BY fecha_preguntas DESC");
+                    INNER JOIN tbl_usuarios ON tbl_preguntas.id_usuario = tbl_usuarios.id_usuario";
+
+                    // Filtrar si hay término de búsqueda
+                    if ($searchTerm != '') {
+                        $query .= " WHERE titulo_preguntas LIKE :searchTerm OR texto_preguntas LIKE :searchTerm";
+                    }
+
+                    $query .= " ORDER BY fecha_preguntas DESC";
+
+                    // Preparar y ejecutar la consulta
+                    $stmt = $conexion->prepare($query);
+
+                    if ($searchTerm != '') {
+                        $stmt->bindValue(':searchTerm', "%$searchTerm%", PDO::PARAM_STR);
+                    }
+
+                    $stmt->execute();
 
                     $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -155,19 +184,17 @@ include_once '../conexion/conexion.php';
                             echo '<strong style="font-size: 14px; color: #666;">Usuario:</strong> ' . htmlspecialchars($pregunta['nombre_usuario']) . '<br>';
                             echo '<strong style="font-size: 14px; color: #666;">Fecha:</strong> ' . htmlspecialchars($pregunta['fecha_preguntas']) . '<br>';
 
-                            echo '<div class="button-group" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">';
+                            echo '<div class="button-group" style="margin-top: 10px;">';
 
-                            echo '<div style="display: flex; gap: 10px;">';
-                            echo '<form action="verRespuestas.php" method="POST">';
+                            echo '<form action="verRespuestas.php" method="POST" style="display: inline-block; margin-right: 10px;">'; // Espacio añadido
                             echo '<input type="hidden" name="id_pregunta" value="' . $pregunta['id_preguntas'] . '">';
                             echo '<button type="submit" name="verRespuesta" class="btn btn-primary">Ver Respuestas</button>';
                             echo '</form>';
 
-                            echo '<form action="form_insertar_respuesta.php" method="POST">';
+                            echo '<form action="form_insertar_respuesta.php" method="POST" style="display: inline-block;">';
                             echo '<input type="hidden" name="id_pregunta" value="' . $pregunta['id_preguntas'] . '">';
                             echo '<button type="submit" name="respuesta" class="btn btn-primary">Responder</button>';
                             echo '</form>';
-                            echo '</div>'; 
                             echo '</div>'; 
                             echo '</li>';
                         }
@@ -181,10 +208,6 @@ include_once '../conexion/conexion.php';
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pzjw8f+ua7Kw1TIq0spbMQF1UoE2bhcY3nZf6hu0bVsYoVvT5vTq77p9bRXg5HUP"
-        crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

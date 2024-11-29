@@ -16,6 +16,21 @@ if (!isset($_SESSION['usuario'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../css/styles.css">
         <title>Hacer Pregunta</title>
+        <style>
+            .btn-volver {
+                background-color: rgb(205, 205, 243);
+                color: black;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            .btn-volver:hover {
+                background-color: rgb(180, 180, 230);
+            }
+        </style>
     </head>
 
     <body>
@@ -28,14 +43,16 @@ if (!isset($_SESSION['usuario'])) {
                 <label for="content" class="form-label">Detalles de la Pregunta</label>
                 <textarea name="content" id="content" placeholder="Detalles de la Pregunta" class="form-control"></textarea>
                 <span class="error-message" id="error-content"></span>
-                <form action="" method="POST">  
-                    <button type="submit" class="login-btn">Añadir Pregunta</button>
-                </form>
+                <button type="submit" class="login-btn">Añadir Pregunta</button>
             </form>
+            <br><br>
+
+            <button onclick="history.back()" class="btn-volver mt-3">Volver</button>
         </div>
-    <script src="../funcionesJS/validaPreguntas.js"></script>
+        <script src="../funcionesJS/validaPreguntas.js"></script>
     </body>
+
     </html>
     <?php
-        }   
-    ?>
+}
+?>

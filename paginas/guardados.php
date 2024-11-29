@@ -26,12 +26,16 @@ if (!isset($_SESSION['usuario'])) {
 
         /* Estilo para el contenedor de la pregunta */
         .pregunta-container {
-            margin-bottom: 20px;
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
             background-color: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
             position: relative;
+        }
+        .pregunta-container:hover {
+            background-color: #f0f0ff;
         }
 
         /* Posiciona el botón de responder en la parte inferior derecha */
@@ -93,10 +97,9 @@ if (!isset($_SESSION['usuario'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="d-flex w-100" role="search">
-                    <input class="form-control search-bar" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit"><i
-                            class="fa-solid fa-magnifying-glass"></i></button>
+                <form class="d-flex w-100" role="search" onsubmit="event.preventDefault(); buscarPreguntas();">
+                    <input class="form-control search-bar" type="search" id="buscar" placeholder="Buscar" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
             <form action="../paginas/cerrar_sesion.php" method="POST">
@@ -164,9 +167,9 @@ if (!isset($_SESSION['usuario'])) {
             if (empty($guardados)) {
                 echo "No tienes preguntas guardadas en este momento.";
             } else {
-                echo '<ul style="list-style-type: none; padding: 0;">';
+                echo '<ul style="list-style-type: none; padding: 0;" id="listaPreguntas">';
                 foreach ($guardados as $pregunta) {
-                    echo '<li class="pregunta-container">';
+                    echo '<li class="pregunta-container" data-titulo="' . htmlspecialchars($pregunta['titulo_preguntas']) . '" data-texto="' . htmlspecialchars($pregunta['texto_preguntas']) . '">';
                     echo '<strong style="font-size: 16px; color: #007BFF;">Título:</strong> ' . htmlspecialchars($pregunta['titulo_preguntas']) . '<br>';
                     echo '<strong style="font-size: 14px; color: #333;">Texto:</strong> ' . htmlspecialchars($pregunta['texto_preguntas']) . '<br>';
                     echo '<strong style="font-size: 14px; color: #666;">Usuario:</strong> ' . htmlspecialchars($pregunta['nombre_usuario']) . '<br>';
@@ -190,5 +193,23 @@ if (!isset($_SESSION['usuario'])) {
         ?>
         </div>
     </div>
+
+    <script>
+        function buscarPreguntas() {
+            const searchTerm = document.getElementById("buscar").value.toLowerCase();
+            const preguntas = document.querySelectorAll(".pregunta-container");
+            
+            preguntas.forEach(pregunta => {
+                const titulo = pregunta.getAttribute("data-titulo").toLowerCase();
+                const texto = pregunta.getAttribute("data-texto").toLowerCase();
+
+                if (titulo.includes(searchTerm) || texto.includes(searchTerm)) {
+                    pregunta.style.display = "";
+                } else {
+                    pregunta.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
