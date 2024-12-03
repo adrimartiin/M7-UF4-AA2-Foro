@@ -1,6 +1,9 @@
 <?php
 session_start();
 include_once '../conexion/conexion.php';
+
+// Obtener el término de búsqueda si se ha enviado
+$searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -15,11 +18,13 @@ include_once '../conexion/conexion.php';
     <link href="../css/styles.css" rel="stylesheet">
     <title>Discusiones</title>
 </head>
+
 <style>
         .barra-izquierda a[name="discusiones"] i,
         .barra-izquierda a[name="discusiones"] span {
             color: black;
         }
+
 </style>
 
 <body>
@@ -46,10 +51,9 @@ include_once '../conexion/conexion.php';
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="d-flex w-100" role="search">
-                    <input class="form-control search-bar" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit"><i
-                            class="fa-solid fa-magnifying-glass"></i></button>
+                <form class="d-flex w-100" role="search" action="" method="get">
+                    <input class="form-control search-bar" type="search" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>" placeholder="Buscar" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
             <form action="./paginas/cerrar_sesion.php" method="POST">
@@ -59,6 +63,11 @@ include_once '../conexion/conexion.php';
     </nav>
 
     <div class="container">
+            <div class="insert-pregunta-btn-container">
+                <form action="form_insertar_pregunta.php" method="POST">
+                    <button type="submit" name="insertPreg" class="btn btn-primary ms-3">Haz una pregunta!</button>
+                </form>
+            </div>
         <div class="barra-izquierda">
             <a href="./verUsuarios.php" name="usuarios" class="d-flex align-items-center text-decoration-none">
                 <i class="fa-solid fa-users me-2"></i><span>Usuarios</span>
@@ -81,20 +90,31 @@ include_once '../conexion/conexion.php';
         <div class="barra-derecha">
             <?php
             try {
-                // Conexión a la base de datos
-                $stmt = $conexion->prepare("
-                SELECT p.id_preguntas, p.titulo_preguntas, p.texto_preguntas, COUNT(r.id_respuestas) AS total_respuestas 
-                FROM tbl_preguntas p
-                JOIN tbl_respuestas r ON p.id_preguntas = r.id_preguntas
-                GROUP BY p.id_preguntas
-                HAVING total_respuestas >= 2;
-                ");
+                // Consulta SQL con filtro de búsqueda si el término de búsqueda está presente
+                $query = "SELECT p.id_preguntas, p.titulo_preguntas, p.texto_preguntas, COUNT(r.id_respuestas) AS total_respuestas 
+                          FROM tbl_preguntas p
+                          JOIN tbl_respuestas r ON p.id_preguntas = r.id_preguntas
+                          GROUP BY p.id_preguntas
+                          HAVING total_respuestas >= 2";
 
+                // Si hay un término de búsqueda, agregar el filtro
+                if ($searchTerm != '') {
+                    $query .= " AND (p.titulo_preguntas LIKE :searchTerm OR p.texto_preguntas LIKE :searchTerm)";
+                }
+
+                // Preparar la consulta
+                $stmt = $conexion->prepare($query);
+
+                // Enlazar el parámetro de búsqueda si es necesario
+                if ($searchTerm != '') {
+                    $stmt->bindValue(':searchTerm', "%" . $searchTerm . "%", PDO::PARAM_STR);
+                }
+
+                // Ejecutar la consulta
                 $stmt->execute();
                 $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 if ($preguntas) {
-                    echo '<h2>Discusiones:</h2>';
                     foreach ($preguntas as $pregunta) {
                         echo '<div class="card mb-3">
                             <div class="card-body">
@@ -123,6 +143,7 @@ include_once '../conexion/conexion.php';
             ?>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pzjw8f+ua7Kw1TIq0spbMQF1UoE2bhcY3nZf6hu0bVsYoVvT5vTq77p9bRXg5HUP"
         crossorigin="anonymous"></script>

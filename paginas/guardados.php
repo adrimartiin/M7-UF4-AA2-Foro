@@ -3,10 +3,36 @@ session_start();
 include_once '../conexion/conexion.php';
 
 if (!isset($_SESSION['usuario'])) {
-    echo 'Error! Debes loguearte para ver preguntas guardadas';
-    exit;
-}
-?>
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <title>Error</title>
+    </head>
+    <body>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Debes tener usuario para poder ver preguntas gaurdadas.',
+                confirmButtonText: 'OK',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '../index.php'; 
+                }
+            });
+        </script>
+    </body>
+    </html>
+    <?php
+    exit(); 
+} 
+    ?>
 
 <html lang="en">
 
@@ -26,12 +52,16 @@ if (!isset($_SESSION['usuario'])) {
 
         /* Estilo para el contenedor de la pregunta */
         .pregunta-container {
-            margin-bottom: 20px;
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
             background-color: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
             position: relative;
+        }
+        .pregunta-container:hover {
+            background-color: #f0f0ff;
         }
 
         /* Posiciona el botón de responder en la parte inferior derecha */
@@ -93,10 +123,10 @@ if (!isset($_SESSION['usuario'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="d-flex w-100" role="search">
-                    <input class="form-control search-bar" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit"><i
-                            class="fa-solid fa-magnifying-glass"></i></button>
+                <!-- event.preventDefault evita el comportamiento predeterminado del formulario, que sería recargar o navegar a una nueva página al enviarse. -->
+                <form class="d-flex w-100" role="search" onsubmit="event.preventDefault(); buscarPreguntas();">
+                    <input class="form-control search-bar" type="search" id="buscar" placeholder="Buscar" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
             <form action="../paginas/cerrar_sesion.php" method="POST">
@@ -106,9 +136,7 @@ if (!isset($_SESSION['usuario'])) {
     </nav>
 
     <div class="container">
-        <!-- Contenedor de las preguntas y el botón "Haz una pregunta" -->
         <div class="preguntas-contenedor">
-            <!-- Botón "Haz una pregunta" en la parte superior derecha -->
             <div class="insert-pregunta-btn-container">
                 <form action="form_insertar_pregunta.php" method="POST">
                     <button type="submit" name="insertPreg" class="btn btn-primary ms-3">Haz una pregunta!</button>
@@ -164,9 +192,9 @@ if (!isset($_SESSION['usuario'])) {
             if (empty($guardados)) {
                 echo "No tienes preguntas guardadas en este momento.";
             } else {
-                echo '<ul style="list-style-type: none; padding: 0;">';
+                echo '<ul style="list-style-type: none; padding: 0;" id="listaPreguntas">';
                 foreach ($guardados as $pregunta) {
-                    echo '<li class="pregunta-container">';
+                    echo '<li class="pregunta-container" data-titulo="' . htmlspecialchars($pregunta['titulo_preguntas']) . '" data-texto="' . htmlspecialchars($pregunta['texto_preguntas']) . '">';
                     echo '<strong style="font-size: 16px; color: #007BFF;">Título:</strong> ' . htmlspecialchars($pregunta['titulo_preguntas']) . '<br>';
                     echo '<strong style="font-size: 14px; color: #333;">Texto:</strong> ' . htmlspecialchars($pregunta['texto_preguntas']) . '<br>';
                     echo '<strong style="font-size: 14px; color: #666;">Usuario:</strong> ' . htmlspecialchars($pregunta['nombre_usuario']) . '<br>';
@@ -190,5 +218,23 @@ if (!isset($_SESSION['usuario'])) {
         ?>
         </div>
     </div>
+
+    <script>
+        function buscarPreguntas() {
+            const searchTerm = document.getElementById("buscar").value.toLowerCase();
+            const preguntas = document.querySelectorAll(".pregunta-container");
+            
+            preguntas.forEach(pregunta => {
+                const titulo = pregunta.getAttribute("data-titulo").toLowerCase();
+                const texto = pregunta.getAttribute("data-texto").toLowerCase();
+
+                if (titulo.includes(searchTerm) || texto.includes(searchTerm)) {
+                    pregunta.style.display = "";
+                } else {
+                    pregunta.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
