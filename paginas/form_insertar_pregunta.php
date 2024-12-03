@@ -2,19 +2,45 @@
 session_start();
 include_once '../conexion/conexion.php';
 
-// Si el usuario no esta logueado mostrar mensaje de error ya que no puede hacer preguntas
 if (!isset($_SESSION['usuario'])) {
-    // cambiar por sweet alert
-    echo "Error! Debes tener usuario para poder hacer preguntas.";
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Debes tener usuario para poder hacer preguntas.',
+                confirmButtonText: 'OK',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '../index.php'; 
+                }
+            });
+        </script>
+    </body>
+    </html>
+    <?php
+    exit(); 
 } else {
     ?>
 
+    <!DOCTYPE html>
     <html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../css/styles.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <title>Hacer Pregunta</title>
         <style>
             .btn-volver {

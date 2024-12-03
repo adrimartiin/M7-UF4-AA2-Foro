@@ -22,8 +22,6 @@ $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
         .barra-izquierda a[name="preguntas"] span {
             color: black;
         }
-
-        /* Estilo para el contenedor de la pregunta */
         .pregunta-container {
             padding: 15px;
             border: 1px solid #ddd;
@@ -36,40 +34,27 @@ $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
         .pregunta-container:hover {
             background-color: #f0f0ff;
         }
-        /* Posiciona el botón de responder en la parte inferior derecha */
         .responder-btn-container {
             position: absolute;
             bottom: 15px;
             right: 15px;
         }
-
-        /* Estilo para el contenedor de preguntas y el botón "Haz una pregunta" */
         .preguntas-contenedor {
             margin-top: 30px;
-            /* Deja un margen para separar el contenido del navbar */
         }
-
-        /* Estilo para el botón de "Haz una pregunta" */
         .insert-pregunta-btn-container {
             position: relative;
             top: -10px;
-            /* Ajusta la posición del botón hacia arriba */
             right: 0;
             z-index: 10;
-            margin-bottom: 20px;
-            /* Añade espacio entre el botón y el contenido */
-        }
+            margin-bottom: 20px;        }
 
         .barra-derecha {
             padding-right: 15px;
         }
-
-        /* Espaciado entre el navbar y el contenido */
         .navbar {
             margin-bottom: 30px;
-            /* Aumenta el espacio entre el navbar y el contenido */
         }
-
         .button-group {
             display: flex;
             gap: 10px; /* Espacio entre los botones */

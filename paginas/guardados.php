@@ -3,10 +3,36 @@ session_start();
 include_once '../conexion/conexion.php';
 
 if (!isset($_SESSION['usuario'])) {
-    echo 'Error! Debes loguearte para ver preguntas guardadas';
-    exit;
-}
-?>
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <title>Error</title>
+    </head>
+    <body>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Debes tener usuario para poder ver preguntas gaurdadas.',
+                confirmButtonText: 'OK',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '../index.php'; 
+                }
+            });
+        </script>
+    </body>
+    </html>
+    <?php
+    exit(); 
+} 
+    ?>
 
 <html lang="en">
 
@@ -97,6 +123,7 @@ if (!isset($_SESSION['usuario'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- event.preventDefault evita el comportamiento predeterminado del formulario, que sería recargar o navegar a una nueva página al enviarse. -->
                 <form class="d-flex w-100" role="search" onsubmit="event.preventDefault(); buscarPreguntas();">
                     <input class="form-control search-bar" type="search" id="buscar" placeholder="Buscar" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -109,9 +136,7 @@ if (!isset($_SESSION['usuario'])) {
     </nav>
 
     <div class="container">
-        <!-- Contenedor de las preguntas y el botón "Haz una pregunta" -->
         <div class="preguntas-contenedor">
-            <!-- Botón "Haz una pregunta" en la parte superior derecha -->
             <div class="insert-pregunta-btn-container">
                 <form action="form_insertar_pregunta.php" method="POST">
                     <button type="submit" name="insertPreg" class="btn btn-primary ms-3">Haz una pregunta!</button>
